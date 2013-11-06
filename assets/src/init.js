@@ -7,7 +7,7 @@
     $("#content").prepend('<h1>Hello. This is our application.</h1>');
     $("#content").append('<div id="chart"><svg></svg></div>');
     
-    function success(data) {
+    function successGraph(data) {
       console.log("Bro!");
       nv.addGraph(function() {
         var chart = nv.models.pieChart()
@@ -22,8 +22,12 @@
       });
     }
 
-    $.getJSON("assets/testdata/testForPie.json", success);
+    function successUser(data) {
+      $("#content").append(data);
+    }
 
+    $.getJSON("assets/testdata/testForPie.json", successGraph);
+  
   });
 
 }(window, jQuery, nv));
