@@ -2,6 +2,6 @@ body {
   padding: 20px
 }
 
-div#chart svg {
+div#chart, #pie, #histo svg {
   height: 400px;
 }
