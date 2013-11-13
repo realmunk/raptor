@@ -1,1 +1,102 @@
-{"name":"ANC","created":"2013-04-18T12:36:27.000+0000","lastUpdated":"2013-04-18T12:36:27.000+0000","access":{"manage":true,"externalize":false,"write":true,"read":true,"update":true,"delete":true},"href":"http://apps.dhis2.org/demo/api/indicatorGroups/oehv9EO3vP7","id":"oehv9EO3vP7","indicators":[{"code":"IN_52488","name":"ANC visits per clinical professional","created":"2012-02-17T17:32:09.168+0000","lastUpdated":"2013-03-15T15:08:57.738+0000","href":"http://apps.dhis2.org/demo/api/indicators/Lzg9LtG1xg3","id":"Lzg9LtG1xg3"},{"code":"IN_52499","name":"ANC TT2 coverage","created":"2012-11-13T11:52:20.096+0000","lastUpdated":"2013-03-19T19:38:16.526+0000","href":"http://apps.dhis2.org/demo/api/indicators/puykO1tbcdi","id":"puykO1tbcdi"},{"code":"IN_52462","name":"ANC 1-3 Dropout Rate","created":"2012-11-05T08:16:29.054+0000","lastUpdated":"2013-03-21T10:17:44.926+0000","href":"http://apps.dhis2.org/demo/api/indicators/ReUHfIn0pTQ","id":"ReUHfIn0pTQ"},{"name":"ANC => 4 Coverage","created":"2012-11-05T18:58:38.724+0000","lastUpdated":"2013-03-20T20:33:00.615+0000","href":"http://apps.dhis2.org/demo/api/indicators/AUqdhY4mpvp","id":"AUqdhY4mpvp"},{"code":"IN_52497","name":"ANC IPT 2 Coverage","created":"2012-11-13T11:52:11.359+0000","lastUpdated":"2013-03-15T15:08:57.741+0000","href":"http://apps.dhis2.org/demo/api/indicators/c8fABiNpT0B","id":"c8fABiNpT0B"},{"name":"ANC 3 Coverage","created":"2012-11-13T11:51:45.321+0000","lastUpdated":"2013-03-20T20:33:00.621+0000","href":"http://apps.dhis2.org/demo/api/indicators/sB79w2hiLp8","id":"sB79w2hiLp8"},{"code":"IN_52486","name":"ANC 1 Coverage","created":"2012-11-13T11:51:32.215+0000","lastUpdated":"2013-03-21T10:17:46.325+0000","href":"http://apps.dhis2.org/demo/api/indicators/Uvn6LCg7dVU","id":"Uvn6LCg7dVU"},{"code":"IN_52491","name":"ANC 2 Coverage","created":"2012-11-13T11:51:38.949+0000","lastUpdated":"2013-03-15T15:08:57.716+0000","href":"http://apps.dhis2.org/demo/api/indicators/OdiHJayrsKo","id":"OdiHJayrsKo"},{"code":"IN_52496","name":"ANC IPT 1 Coverage","created":"2012-11-13T11:52:05.997+0000","lastUpdated":"2013-03-15T15:08:57.718+0000","href":"http://apps.dhis2.org/demo/api/indicators/dwEq7wi6nXV","id":"dwEq7wi6nXV"},{"code":"IN_52500","name":"ANC LLITN coverage","created":"2012-11-13T11:52:16.016+0000","lastUpdated":"2013-03-20T20:33:00.618+0000","href":"http://apps.dhis2.org/demo/api/indicators/Tt5TAvdfdVK","id":"Tt5TAvdfdVK"}],"indicatorGroupSet":{"name":"Reproductive Health","created":"2011-12-24T11:24:22.612+0000","lastUpdated":"2013-03-15T15:08:57.856+0000","href":"http://apps.dhis2.org/demo/api/indicatorGroupSets/xWC05MF5TqE","id":"xWC05MF5TqE"}}
+{
+   "name":"ANC",
+   "created":"2013-04-18T12:36:27.000+0000",
+   "lastUpdated":"2013-04-18T12:36:27.000+0000",
+   "access":{
+      "manage":true,
+      "externalize":false,
+      "write":true,
+      "read":true,
+      "update":true,
+      "delete":true
+   },
+   "href":"http://apps.dhis2.org/demo/api/indicatorGroups/oehv9EO3vP7",
+   "id":"oehv9EO3vP7",
+   "indicators":[
+      {
+         "code":"IN_52488",
+         "name":"ANC visits per clinical professional",
+         "created":"2012-02-17T17:32:09.168+0000",
+         "lastUpdated":"2013-03-15T15:08:57.738+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/Lzg9LtG1xg3",
+         "id":"Lzg9LtG1xg3"
+      },
+      {
+         "code":"IN_52499",
+         "name":"ANC TT2 coverage",
+         "created":"2012-11-13T11:52:20.096+0000",
+         "lastUpdated":"2013-03-19T19:38:16.526+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/puykO1tbcdi",
+         "id":"puykO1tbcdi"
+      },
+      {
+         "code":"IN_52462",
+         "name":"ANC 1-3 Dropout Rate",
+         "created":"2012-11-05T08:16:29.054+0000",
+         "lastUpdated":"2013-03-21T10:17:44.926+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/ReUHfIn0pTQ",
+         "id":"ReUHfIn0pTQ"
+      },
+      {
+         "name":"ANC => 4 Coverage",
+         "created":"2012-11-05T18:58:38.724+0000",
+         "lastUpdated":"2013-03-20T20:33:00.615+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/AUqdhY4mpvp",
+         "id":"AUqdhY4mpvp"
+      },
+      {
+         "code":"IN_52497",
+         "name":"ANC IPT 2 Coverage",
+         "created":"2012-11-13T11:52:11.359+0000",
+         "lastUpdated":"2013-03-15T15:08:57.741+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/c8fABiNpT0B",
+         "id":"c8fABiNpT0B"
+      },
+      {
+         "name":"ANC 3 Coverage",
+         "created":"2012-11-13T11:51:45.321+0000",
+         "lastUpdated":"2013-03-20T20:33:00.621+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/sB79w2hiLp8",
+         "id":"sB79w2hiLp8"
+      },
+      {
+         "code":"IN_52486",
+         "name":"ANC 1 Coverage",
+         "created":"2012-11-13T11:51:32.215+0000",
+         "lastUpdated":"2013-03-21T10:17:46.325+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/Uvn6LCg7dVU",
+         "id":"Uvn6LCg7dVU"
+      },
+      {
+         "code":"IN_52491",
+         "name":"ANC 2 Coverage",
+         "created":"2012-11-13T11:51:38.949+0000",
+         "lastUpdated":"2013-03-15T15:08:57.716+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/OdiHJayrsKo",
+         "id":"OdiHJayrsKo"
+      },
+      {
+         "code":"IN_52496",
+         "name":"ANC IPT 1 Coverage",
+         "created":"2012-11-13T11:52:05.997+0000",
+         "lastUpdated":"2013-03-15T15:08:57.718+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/dwEq7wi6nXV",
+         "id":"dwEq7wi6nXV"
+      },
+      {
+         "code":"IN_52500",
+         "name":"ANC LLITN coverage",
+         "created":"2012-11-13T11:52:16.016+0000",
+         "lastUpdated":"2013-03-20T20:33:00.618+0000",
+         "href":"http://apps.dhis2.org/demo/api/indicators/Tt5TAvdfdVK",
+         "id":"Tt5TAvdfdVK"
+      }
+   ],
+   "indicatorGroupSet":{
+      "name":"Reproductive Health",
+      "created":"2011-12-24T11:24:22.612+0000",
+      "lastUpdated":"2013-03-15T15:08:57.856+0000",
+      "href":"http://apps.dhis2.org/demo/api/indicatorGroupSets/xWC05MF5TqE",
+      "id":"xWC05MF5TqE"
+   }
+}

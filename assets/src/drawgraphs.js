@@ -15,13 +15,16 @@
 		function drawHisto(data) {
 			var rows = data.rows,
 				meta = data.metaData,
-				plotData = {"key" : "TestHisto", "values" : []};
+				plotData = {
+          "key" : "TestHisto", 
+          "values" : []
+        };
 
 			function getPoints() {
 				var i;
 				for (i = 0; i < rows.length; i += 1) {
 					plotData.values.push({ "label" : meta.pe[i],
-								           "value" : parseFloat(rows[i][2])});
+					  "value" : parseFloat(rows[i][2])});
 				}
 				return [plotData];
 			}
@@ -81,13 +84,8 @@
 
 		}
 
-
-		function drawTrend() {
-
-		}
-
-		$.getJSON("assets/testdata/analytics.json", drawHisto);
-		$.getJSON("assets/testdata/analytics.json", drawPie);
+		$.getJSON("api/trends", drawHisto);
+		$.getJSON("api/proportions", drawPie);
 	});
 
 

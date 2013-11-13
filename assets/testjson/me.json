@@ -1,2 +1,58 @@
-
-{"name":"John Traore","created":"2013-04-18T15:15:08.407+0000","lastUpdated":"2013-11-12T12:23:33.528+0000","surname":"Traore","firstName":"John","email":"system@admin.com","jobTitle":"Super user","introduction":"I am the super user of DHIS 2","gender":"gender_other","birthday":"1971-04-07T23:00:00.000+0000","employer":"DHIS","education":"Master of super using","interests":"Football, swimming, singing, dancing","languages":"English","lastCheckedInterpretations":"2013-11-12T12:23:33.528+0000","userCredentials":{"code":"admin","name":"John Traore","created":"2013-04-18T15:15:08.401+0000","username":"admin","userAuthorityGroups":[{"name":"Superuser","created":"2012-11-13T17:10:26.881+0000","lastUpdated":"2013-10-16T12:12:09.893+0000","id":"Ufph3mGRmMo"}],"lastLogin":"2013-11-12T14:01:25.031+0000","selfRegistered":false,"disabled":false},"groups":[{"name":"TB Program Coordinators","created":"2013-03-11T17:25:44.229+0000","lastUpdated":"2013-11-12T06:55:10.419+0000","id":"hj0nnsVsPLU"},{"name":"Feedback Message Recipients","created":"2011-12-25T15:52:04.409+0000","lastUpdated":"2013-09-19T14:35:56.328+0000","id":"QYrzIjSfI8z"}],"organisationUnits":[{"code":"OU_525","name":"Sierra Leone","created":"2012-11-13T11:20:53.028+0000","lastUpdated":"2013-10-12T11:54:35.501+0000","id":"ImspTQPwCqd"}],"id":"xE7jOejl9FI"}
+{
+  "name":"John Traore",
+  "created":"2013-04-18T15:15:08.407+0000",
+  "lastUpdated":"2013-11-12T12:23:33.528+0000",
+  "surname":"Traore",
+  "firstName":"John",
+  "email":"system@admin.com",
+  "jobTitle":"Super user",
+  "introduction":"I am the super user of DHIS 2",
+  "gender":"gender_other",
+  "birthday":"1971-04-07T23:00:00.000+0000",
+  "employer":"DHIS",
+  "education":"Master of super using",
+  "interests":"Football, swimming, singing, dancing",
+  "languages":"English",
+  "lastCheckedInterpretations":"2013-11-12T12:23:33.528+0000",
+  "userCredentials":{
+    "code":"admin",
+    "name":"John Traore",
+    "created":"2013-04-18T15:15:08.401+0000",
+    "username":"admin",
+    "userAuthorityGroups":[
+      {
+        "name":"Superuser",
+        "created":"2012-11-13T17:10:26.881+0000",
+        "lastUpdated":"2013-10-16T12:12:09.893+0000",
+        "id":"Ufph3mGRmMo"
+      }
+    ],
+    "lastLogin":"2013-11-12T14:01:25.031+0000",
+    "selfRegistered":false,
+    "disabled":false
+  },
+  "groups":[
+    {
+      "name":"TB Program Coordinators",
+      "created":"2013-03-11T17:25:44.229+0000",
+      "lastUpdated":"2013-11-12T06:55:10.419+0000",
+      "id":"hj0nnsVsPLU"
+    },
+    {
+      "name":"Feedback Message Recipients",
+      "created":"2011-12-25T15:52:04.409+0000",
+      "lastUpdated":"2013-09-19T14:35:56.328+0000",
+      "id":"QYrzIjSfI8z"
+    }
+  ],
+  "organisationUnits":[
+    {
+      "code":"OU_525",
+      "name":"Sierra Leone",
+      "created":"2012-11-13T11:20:53.028+0000",
+      "lastUpdated":"2013-10-12T11:54:35.501+0000",
+      "id":"ImspTQPwCqd"
+    }
+  ],
+  "id":"xE7jOejl9FI"
+}
