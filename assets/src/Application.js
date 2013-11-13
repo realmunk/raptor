@@ -10,23 +10,23 @@
       indicatorGroups,
       indicator,
       graphType,
-      graphTypes = ['Proportions', 'Trends','Comparison'];
+      graphTypes = ['Proportions', 'Trends','Comparison'],
+      app = $.sammy('#content'),
+      graphs = new ns.Graphs();
 
     function setOrganisationUnit(data) {
       orgUnit = data.organisationUnits[0].id;
     }
 
-
     function setGraphType(type) {
-      console.log(type);
       graphType = type;
     }
 
     function drawGraphTypes() {
-      var $element = $("#content").append('<div class="btn-group btn-group-justified">').find('.btn-group');
+      var $element = $("#graphTypes");
 
       $.each(graphTypes, function (index, item) {
-        $element.append('<a href="javascript:void(0);" class="btn btn-info" id="' + item + '">' + item + '</a>');
+        $element.append('<a href="#/indicator/' + indicator + '/graph/' + item +'" class="btn btn-info" id="' + item + '">' + item + '</a>');
         $element.find('#'+ item).click(function () {
           setGraphType(item);
           $element.find('.btn-info').removeClass('active');
@@ -37,14 +37,11 @@
 
     function setIndicator(id) {
       indicator = id;
-      console.log(indicator);
     }
 
+    // If we need to further parse this data, this can be done here.
     function setIndicatorGroups(data) {
-      // If we need to further parse the data, this can be done here.
       indicatorGroups = data.indicatorGroups;
-      // lets draw it in our view
-      drawIndicatorGroups(indicatorGroups);
     }
 
 
@@ -55,15 +52,14 @@
       Then we select the appended item and create a click function for the baby. 
       The click function sets the proper class, and the correct indicator.
     */
-    function drawIndicatorGroups(indicatorGroups) {
+    function drawIndicatorGroups() {
       var $allElements, $element;
 
-      $('#content').append('<ul class="list-group"></ul>');
-      $allElements = $('#content ul');
+      $allElements = $('#indicators');
 
       _.each(indicatorGroups, function (indicatorGroup) {
         
-        $allElements.append('<li class="list-group-item" id="' + indicatorGroup.id +'">' + indicatorGroup.name + '</li>');
+        $allElements.append('<a href="#/indicator/' + indicatorGroup.id +'"><li class="list-group-item" id="' + indicatorGroup.id +'">' + indicatorGroup.name + '</li></a>');
         $element = $allElements.find('#' + indicatorGroup.id);
         
         $element.click(function () {
@@ -74,11 +70,64 @@
       });
     }
 
+    // OK ... so this is where the magic happens. 
+    // We define routes, so we can history for browsers
+    app.get('#/', function () {
+
+      this.load("/views/indicators.html", function (HTML) {
+        
+        $("#content").html(HTML);
+
+        $.getJSON("api/indicatorGroups.json", function (data) { 
+          setIndicatorGroups(data);
+          drawIndicatorGroups();
+        });
+
+      });
+
+    });
+
+    app.get('#/indicator/:indicator', function () {
+      if (!indicator) {
+        indicator = this.params.indicator;
+      }
+      this.load("/views/graphtypes.html", function (HTML) {
+        $("#content").html(HTML);
+        drawGraphTypes();
+      });
+    });
+
+    app.get('#/indicator/:indicator/graph/:type', function () {
+
+      if (!indicator) {
+        indicator = this.params.indicator;
+      }
+
+      if (!graphType) {
+        graphType = this.params.type;
+      }
+      if (graphType === 'Comparison') {     
+        this.load("/views/comparison.html", function (HTML) {
+          $("#content").html(HTML);
+          graphs.drawComparison();
+        });
+      } else if (graphType === 'Trends') {
+        this.load("/views/trends.html", function (HTML) {
+          $("#content").html(HTML);
+          graphs.drawTrends();
+        });
+      } else {
+        this.load("/views/proportions.html", function (HTML) {
+          $("#content").html(HTML);
+          graphs.drawProportions();
+        });
+      }
+    });
+
     // This is a constructor, gets and sets our data on initiation 
     (function () {
       $.getJSON("api/me.json", setOrganisationUnit);
-      $.getJSON("api/indicatorGroups.json", setIndicatorGroups);
-      drawGraphTypes();
+      app.run("#/");
     }());
   };
 
