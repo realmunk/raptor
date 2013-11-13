@@ -22,27 +22,27 @@ app.get('/views/:file', function(req, res){
 });
 
 app.get('/api/me.json', function(req, res){
-  res.sendfile(__dirname + '/assets/testjson/me.json');
+  res.sendfile(__dirname + '/assets/testdata/me.json');
 });
 
 app.get('/api/indicatorGroups.json', function(req, res){
-  res.sendfile(__dirname + '/assets/testjson/indicatorGroups.json');
+  res.sendfile(__dirname + '/assets/testdata/indicatorGroups.json');
 });
 
 app.get('/api/indicatorGroups/oehv9EO3vP7', function(req, res){
-  res.sendfile(__dirname + '/assets/testjson/indicator.json');
+  res.sendfile(__dirname + '/assets/testdata/indicator.json');
 });
 
 app.get('/api/trends', function(req, res){
-  res.sendfile(__dirname + '/assets/testjson/task1_data.json');
+  res.sendfile(__dirname + '/assets/testdata/task1_data.json');
 });
 
 app.get('/api/comparison', function(req, res){
-  res.sendfile(__dirname + '/assets/testjson/task2_data.json');
+  res.sendfile(__dirname + '/assets/testdata/task2_data.json');
 });
 
 app.get('/api/proportions', function(req, res){
-  res.sendfile(__dirname + '/assets/testjson/task3_data.json');
+  res.sendfile(__dirname + '/assets/testdata/task3_data.json');
 });
 
 

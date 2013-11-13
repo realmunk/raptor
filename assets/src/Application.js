@@ -1,42 +1,27 @@
 (function (window, $, nv) {
-  "use strict";  
+  "use strict";
 
   window.RAPTOR = window.RAPTOR || {};
   var ns = window.RAPTOR;
 
-  ns.Application = function (dev) {
+  ns.Application = function () {
 
     var orgUnit,
       indicatorGroups,
       indicator,
       graphType,
-      graphTypes = ['Proportions', 'Trends','Comparison'],
+      graphTypes = ['Proportions', 'Trends', 'Comparison'],
       app = $.sammy('#content'),
       graphs = new ns.Graphs();
 
+    // This is used as a "constructor", gets and sets our data on initiation 
+    this.run = function run () {
+      $.getJSON("api/me.json", setOrganisationUnit);
+      app.run("#/");
+    };
+
     function setOrganisationUnit(data) {
       orgUnit = data.organisationUnits[0].id;
-    }
-
-    function setGraphType(type) {
-      graphType = type;
-    }
-
-    function drawGraphTypes() {
-      var $element = $("#graphTypes");
-
-      $.each(graphTypes, function (index, item) {
-        $element.append('<a href="#/indicator/' + indicator + '/graph/' + item +'" class="btn btn-info" id="' + item + '">' + item + '</a>');
-        $element.find('#'+ item).click(function () {
-          setGraphType(item);
-          $element.find('.btn-info').removeClass('active');
-          $(this).toggleClass('active');
-        });
-      });
-    }
-
-    function setIndicator(id) {
-      indicator = id;
     }
 
     // If we need to further parse this data, this can be done here.
@@ -44,6 +29,26 @@
       indicatorGroups = data.indicatorGroups;
     }
 
+    function setGraphType(type) {
+      graphType = type;
+    }
+
+    function setIndicator(id) {
+      indicator = id;
+    }
+
+    function drawGraphTypes() {
+      var $element = $("#graphTypes");
+
+      $.each(graphTypes, function (index, item) {
+        $element.append('<a href="#/indicator/' + indicator + '/graph/' + item + '" class="btn btn-info" id="' + item + '">' + item + '</a>');
+        $element.find('#' + item).click(function () {
+          setGraphType(item);
+          $element.find('.btn-info').removeClass('active');
+          $(this).toggleClass('active');
+        });
+      });
+    }
 
     /**
       OK ... alot of stuff happening here.
@@ -58,10 +63,10 @@
       $allElements = $('#indicators');
 
       _.each(indicatorGroups, function (indicatorGroup) {
-        
-        $allElements.append('<a href="#/indicator/' + indicatorGroup.id +'"><li class="list-group-item" id="' + indicatorGroup.id +'">' + indicatorGroup.name + '</li></a>');
+
+        $allElements.append('<a href="#/indicator/' + indicatorGroup.id + '"><li class="list-group-item" id="' + indicatorGroup.id +'">' + indicatorGroup.name + '</li></a>');
         $element = $allElements.find('#' + indicatorGroup.id);
-        
+
         $element.click(function () {
           setIndicator(indicatorGroup.id);
           $allElements.find('li').removeClass('active');
@@ -71,11 +76,11 @@
     }
 
     // OK ... so this is where the magic happens. 
-    // We define routes, so we can history for browsers
+    // We define routes, so we can utilize the standard history for browsers
     app.get('#/', function () {
 
       this.load("/views/indicators.html", function (HTML) {
-        
+
         $("#content").html(HTML);
 
         $.getJSON("api/indicatorGroups.json", function (data) { 
@@ -124,16 +129,12 @@
       }
     });
 
-    // This is a constructor, gets and sets our data on initiation 
-    (function () {
-      $.getJSON("api/me.json", setOrganisationUnit);
-      app.run("#/");
-    }());
   };
 
   // Lets start our app!
   $(document).ready(function () {
-    var app = new ns.Application(true); 
+    var app = new ns.Application();
+    app.run();
   });
 
 }(window, jQuery, nv));
