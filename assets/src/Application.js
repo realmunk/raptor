@@ -16,8 +16,12 @@
       graphType;
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
-      //$.getJSON("api/me.json", setUserData);
-	  $.getJSON("/demo/api/me.json", setUserData);
+      var isDemo = window.location.href.indexOf('/demo/') !== -1 ? true: false;
+      if (isDemo) {
+   	    $.getJSON("/demo/api/me.json", setUserData); 
+      } else {
+        $.getJSON("/api/me.json", setUserData);
+      }
       app.run("#/");
     };
 
@@ -116,11 +120,10 @@
     });
 
     function getComparisonData(ids) {
-      var url = "/api/analytics.json?dimension=dx:";
-      console.log(ids);
+      var url = "/api/analytics1.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
-      })
+      });
       url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
       console.log(url);
       $.getJSON(url, function(data) {
@@ -137,7 +140,7 @@
       
       indicatorGroup = this.params.indicatorGroup;
       
-      $.getJSON("/api/indicatorGroups/" + indicatorGroup, function(data) {
+      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
         if (data.error) {
           console.error("dataerror");
           return;
@@ -152,11 +155,28 @@
       });
     });
 
+    function getTrendsData(ids) {
+      var url = "/api/analytics2.json?dimension=dx:";
+      _.each(ids, function(id) {
+        url += id+ ";";
+      });
+      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
+      console.log(url);
+      $.getJSON(url, function(data) {
+        if(data.error) {
+          console.error("dataerror2");
+          return;
+        }
+        console.log(data);
+        graphs.parseComparison(data);
+      });
+    }
+
     app.get('#/indicatorGroup/:indicatorGroup/graph/Trends', function () {
       
       indicatorGroup = this.params.indicatorGroup;
       
-      $.getJSON("/api/indicatorGroups/" + indicatorGroup, function(data) {
+      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
         if (data.error) {
           console.error("dataerror");
           return;
@@ -168,6 +188,38 @@
       });
     });
 
+    function getProportionsData(ids) {
+      var url = "/api/analytics3.json?dimension=dx:";
+      _.each(ids, function(id) {
+        url += id+ ";";
+      });
+      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
+      console.log(url);
+      $.getJSON(url, function(data) {
+        if(data.error) {
+          console.error("dataerror2");
+          return;
+        }
+        console.log(data);
+        graphs.parseComparison(data);
+      });
+    }
+
+    app.get('#/indicatorGroup/:indicatorGroup/graph/Proportions', function () {
+      
+      indicatorGroup = this.params.indicatorGroup;
+      
+      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+        if (data.error) {
+          console.error("dataerror");
+          return;
+        }
+        
+        console.log(data.indicators);
+        console.log(getComparisonData(_.pluck(data.indicators, 'id')));
+
+      });
+    });
 
   };
 
