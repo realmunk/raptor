@@ -76,7 +76,7 @@
 
       _.each(indicatorGroups, function (indicatorGroup) {
         date = new Date(indicatorGroup.lastUpdated);
-        $allElements.append('<li class="indicator" id="' + indicatorGroup.id +'">' + '<span class="name">' + indicatorGroup.name + '<span class="pull-right">' + date.toLocaleString() + '</span></li>');
+        $allElements.append('<a href="#/indicator/' + indicatorGroup.id + '"><li class="indicator" id="' + indicatorGroup.id +'">' + '<span class="name">' + indicatorGroup.name + '<span class="pull-right">' + date.toLocaleString() + '</span></li></a>');
         $element = $allElements.find('#' + indicatorGroup.id);
 
         $element.click(function () {
