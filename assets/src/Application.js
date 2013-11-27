@@ -18,7 +18,7 @@
     this.run = function run () {
       var isDemo = window.location.href.indexOf('/demo/') !== -1 ? true: false;
       if (isDemo) {
-   	    $.getJSON("/demo/api/me.json", setUserData); 
+        $.getJSON("/demo/api/me.json", setUserData); 
       } else {
         $.getJSON("/api/me.json", setUserData);
       }
@@ -26,8 +26,6 @@
     };
 
     function setUserData(data) {
-		console.log("TEST");
-		console.log(data);
       user.location = data.organisationUnits[0].name;
       user.name = data.name;
       orgUnit = data.organisationUnits[0].id;
