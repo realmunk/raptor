@@ -8,7 +8,9 @@
 
     var graphTypes = ['Proportions', 'Trends', 'Comparison'],
       app = $.sammy('#content'),
-      graphs = new ns.Graphs(),
+      graphs = new ns.Comparisons(),
+      trends = new ns.Trends(),
+      proportions = new ns.Proportions(),
       user = {},
       orgUnit,
       indicatorGroups,

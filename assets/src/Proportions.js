@@ -5,7 +5,7 @@
   var ns = window.RAPTOR;
 
   ns.Proportions = function () {
-    var indicators = []
+    var self = this;
 
     this.parseProportions = function parseProportions (indicators) {
       

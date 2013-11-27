@@ -4,7 +4,7 @@
   var ns = window.RAPTOR;
 
   ns.Trends = function () {
-    var indicators = []
+    var self = this;
 
 
     this.parseComparison = function parseTrends (indicators) {
