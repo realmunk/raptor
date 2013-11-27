@@ -12,7 +12,7 @@
       user = {},
       orgUnit,
       indicatorGroups,
-      indicator,
+      indicatorGroup,
       graphType;
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
@@ -38,7 +38,7 @@
     }
 
     function setIndicator(id) {
-      indicator = id;
+      indicatorGroup = id;
     }
     function drawUserData () {
       var $element = $("#title");
@@ -48,7 +48,7 @@
     function drawGraphTypes() {
       var $element = $("#graphTypes");
       $.each(graphTypes, function (index, item) {
-        $element.append('<a href="#/indicator/' + indicator + '/graph/' + item + '" class="btn btn-info" id="' + item + '">' + item + '</a>');
+        $element.append('<a href="#/indicatorGroup/' + indicatorGroup + '/graph/' + item + '" class="btn btn-info" id="' + item + '">' + item + '</a>');
         $element.find('#' + item).click(function () {
           setGraphType(item);
           $element.find('.btn-info').removeClass('active');
@@ -73,7 +73,7 @@
 
       _.each(indicatorGroups, function (indicatorGroup) {
         date = new Date(indicatorGroup.lastUpdated);
-        $allElements.append('<a href="#/indicator/' + indicatorGroup.id + '"><li class="indicator" id="' + indicatorGroup.id +'">' + '<span class="name">' + indicatorGroup.name + '<span class="pull-right">' + date.toLocaleString() + '</span></li></a>');
+        $allElements.append('<a href="#/indicatorGroup/' + indicatorGroup.id + '"><li class="indicatorGroup" id="' + indicatorGroup.id +'">' + '<span class="name">' + indicatorGroup.name + '<span class="pull-right">' + date.toLocaleString() + '</span></li></a>');
         $element = $allElements.find('#' + indicatorGroup.id);
 
         $element.click(function () {
@@ -101,42 +101,70 @@
 
     });
 
-    app.get('#/indicator/:indicator', function () {
-      if (!indicator) {
-        indicator = this.params.indicator;
-      }
+    app.get('#/indicatorGroup/:indicatorGroup', function () {
+      
+      indicatorGroup = this.params.indicatorGroup;
+      
       this.load("/views/graphtypes.html", function (HTML) {
         $("#content").html(HTML);
         drawGraphTypes();
+
       });
     });
 
-    app.get('#/indicator/:indicator/graph/:type', function () {
+    function getComparisonData(ids) {
+      var url = "/api/analytics.json?dimension=dx:";
+      console.log(ids);
+      _.each(ids, function(id) {
+        url += id+ ";";
+      })
+      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
+      console.log(url);
+      $.getJSON(url, function(data) {
+        if(data.error) {
+          console.error("dataerror2");
+          return;
+        }
+        console.log(data);
+        graphs.parseComparison(data);
+      });
+    }
 
-      if (!indicator) {
-        indicator = this.params.indicator;
-      }
+    app.get('#/indicatorGroup/:indicatorGroup/graph/Comparison', function () {
+      
+      indicatorGroup = this.params.indicatorGroup;
+      
+      $.getJSON("/api/indicatorGroups/" + indicatorGroup, function(data) {
+        if (data.error) {
+          console.error("dataerror");
+          return;
+        }
+        
+        console.log(data.indicators);
+        var url = getComparisonData(_.pluck(data.indicators, 'id'));
 
-      if (!graphType) {
-        graphType = this.params.type;
-      }
-      if (graphType === 'Comparison') {     
-        this.load("/views/comparison.html", function (HTML) {
-          $("#content").html(HTML);
-          graphs.drawComparison();
-        });
-      } else if (graphType === 'Trends') {
-        this.load("/views/trends.html", function (HTML) {
-          $("#content").html(HTML);
-          graphs.drawTrends();
-        });
-      } else {
-        this.load("/views/proportions.html", function (HTML) {
-          $("#content").html(HTML);
-          graphs.drawProportions();
-        });
-      }
+      });
+      this.load("views/comparison.html", function(HTML) {
+        $("#content").html(HTML);
+      });
     });
+
+    app.get('#/indicatorGroup/:indicatorGroup/graph/Trends', function () {
+      
+      indicatorGroup = this.params.indicatorGroup;
+      
+      $.getJSON("/api/indicatorGroups/" + indicatorGroup, function(data) {
+        if (data.error) {
+          console.error("dataerror");
+          return;
+        }
+        
+        console.log(data.indicators);
+        console.log(getComparisonData(_.pluck(data.indicators, 'id')));
+
+      });
+    });
+
 
   };
 

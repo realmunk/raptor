@@ -24,16 +24,16 @@ header h3 {
   padding: 0;
 }
 
-.indicator:first-child {
+.indicatorGroup:first-child {
   border-top: 0;
 }
 
-.indicator {
+.indicatorGroup {
   padding: 10px 20px;
   border-top: 1px solid #f1f1f1;
 }
 
-.indicator:hover {
+.indicatorGroup:hover {
   background: white;
   color: #26393d;
 }
