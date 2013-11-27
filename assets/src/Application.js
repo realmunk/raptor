@@ -16,11 +16,14 @@
       graphType;
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
-      $.getJSON("api/me.json", setUserData);
+      //$.getJSON("api/me.json", setUserData);
+	  $.getJSON("/demo/api/me.json", setUserData);
       app.run("#/");
     };
 
     function setUserData(data) {
+		console.log("TEST");
+		console.log(data);
       user.location = data.organisationUnits[0].name;
       user.name = data.name;
       orgUnit = data.organisationUnits[0].id;

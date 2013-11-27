@@ -35,3 +35,15 @@ JSON Story:
   4a. Needs a organisation unit
   4b. Needs an indicator
   4c. Handle data retrieved and create seperate lists
+  
+  Rewrite:
+  
+Trends:
+1. Get api/indicatorGroups/
+    1a. Pick IndicatorGroup
+2. For each Indicator in chosen indicatorGroup:
+	2a. Get graph with arguments: dx:indicatorId and ou:organizationUnitId for LAST_12_MONTHS
+		api/analytics.json?dimension=dx:%IndicatorKey%&dimension=pe:LAST_12_MONTHS&filter=ou:%OrgUnitKey%
+3.
+  
+  
