@@ -1,5 +1,49 @@
 body {
-  padding: 20px
+  background: #f1f1f1;
+}
+
+header {
+  border-radius: 2px;
+  box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.25);
+  background: white;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+header h3 {
+  margin: 0;
+}
+
+#indicators {
+  border-radius: 2px;
+  box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.25);
+  background: #26393d;
+  color: white;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.indicator:first-child {
+  border-top: 0;
+}
+
+.indicator {
+  padding: 10px 20px;
+  border-top: 1px solid #f1f1f1;
+}
+
+.indicator:hover {
+  background: white;
+  color: #26393d;
+}
+
+.navbar-dhis {
+  background: #40627c;
+}
+
+.navbar-dhis .navbar-brand {
+  color: white;
 }
 
 div#chart, #pie, #histo svg {
