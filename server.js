@@ -29,13 +29,22 @@ app.get('/api/indicatorGroups.json', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/indicatorGroups.json');
 });
 
-app.get('/api/indicatorGroups/:id', function(req, res){
+app.get('/api/indicatorGroup/:id', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/indicatorGroup.json');
 });
 
-app.get('/api/analytics.js?:anything', function(req, res){
+app.get('/api/analytics1.js?:anything', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/task1_data.json');
 });
+
+app.get('/api/analytics2.js?:anything', function(req, res){
+  res.sendfile(__dirname + '/assets/testdata/task2_data.json');
+});
+
+app.get('/api/analytics3.js?:anything', function(req, res){
+  res.sendfile(__dirname + '/assets/testdata/task3_data.json');
+});
+
 
 app.get('/api/trends', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/task1_data.json');
