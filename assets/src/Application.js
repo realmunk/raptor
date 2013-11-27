@@ -6,28 +6,32 @@
 
   ns.Application = function () {
 
-    var orgUnit,
+    var graphTypes = ['Proportions', 'Trends', 'Comparison'],
+      app = $.sammy('#content'),
+      graphs = new ns.Graphs(),
+      user = {},
+      orgUnit,
       indicatorGroups,
       indicator,
-      graphType,
-      graphTypes = ['Proportions', 'Trends', 'Comparison'],
-      app = $.sammy('#content'),
-      graphs = new ns.Graphs();
-
+      graphType;
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
-      $.getJSON("api/me.json", setOrganisationUnit);
+      $.getJSON("api/me.json", setUserData);
       app.run("#/");
     };
 
-    function setOrganisationUnit(data) {
+    function setUserData(data) {
+      user.location = data.organisationUnits[0].name;
+      user.name = data.name;
       orgUnit = data.organisationUnits[0].id;
+      drawUserData();
     }
 
     // If we need to further parse this data, this can be done here.
     function setIndicatorGroups(data) {
       indicatorGroups = data.indicatorGroups;
     }
+
 
     function setGraphType(type) {
       graphType = type;
@@ -36,10 +40,13 @@
     function setIndicator(id) {
       indicator = id;
     }
+    function drawUserData () {
+      var $element = $("#title");
+      $element.find('.navbar-brand').text(user.location);
+    }
 
     function drawGraphTypes() {
       var $element = $("#graphTypes");
-
       $.each(graphTypes, function (index, item) {
         $element.append('<a href="#/indicator/' + indicator + '/graph/' + item + '" class="btn btn-info" id="' + item + '">' + item + '</a>');
         $element.find('#' + item).click(function () {
@@ -58,13 +65,15 @@
       The click function sets the proper class, and the correct indicator.
     */
     function drawIndicatorGroups() {
-      var $allElements, $element;
+      var $allElements, 
+        $element,
+        date;
 
       $allElements = $('#indicators');
 
       _.each(indicatorGroups, function (indicatorGroup) {
-
-        $allElements.append('<a href="#/indicator/' + indicatorGroup.id + '"><li class="list-group-item" id="' + indicatorGroup.id +'">' + indicatorGroup.name + '</li></a>');
+        date = new Date(indicatorGroup.lastUpdated);
+        $allElements.append('<li class="indicator" id="' + indicatorGroup.id +'">' + '<span class="name">' + indicatorGroup.name + '<span class="pull-right">' + date.toLocaleString() + '</span></li>');
         $element = $allElements.find('#' + indicatorGroup.id);
 
         $element.click(function () {
