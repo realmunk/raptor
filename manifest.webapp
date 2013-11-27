@@ -1,0 +1,18 @@
+{
+    "version": "0.3.2",
+    "name": "Raptor Visualizer!!",
+    "description": "This is a pro app",
+    "launch_path": "index.html",
+    "icons": {
+    },
+    "developer": {
+        "name": "Bendik, Stian, Kristian og Martin",
+        "url": "http://Bendik.com"
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "*"
+        }
+    }
+}
