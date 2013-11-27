@@ -29,8 +29,12 @@ app.get('/api/indicatorGroups.json', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/indicatorGroups.json');
 });
 
-app.get('/api/indicatorGroups/oehv9EO3vP7', function(req, res){
-  res.sendfile(__dirname + '/assets/testdata/indicator.json');
+app.get('/api/indicatorGroups/:id', function(req, res){
+  res.sendfile(__dirname + '/assets/testdata/indicatorGroup.json');
+});
+
+app.get('/api/analytics.js?:anything', function(req, res){
+  res.sendfile(__dirname + '/assets/testdata/task1_data.json');
 });
 
 app.get('/api/trends', function(req, res){
