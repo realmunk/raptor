@@ -120,6 +120,7 @@
     });
 
     function getComparisonData(ids) {
+      console.log(ids);
       var url = "/api/analytics1.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
@@ -132,7 +133,7 @@
           return;
         }
         console.log(data);
-        graphs.parseComparison(data);
+        graphs.parseComparison(data, ids);
       });
     }
 
