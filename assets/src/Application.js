@@ -162,7 +162,7 @@
       _.each(ids, function(id) {
         url += id+ ";";
       });
-      url += "&dimension=pe:LAST_QUARTER&filter=ou:" + orgUnit;
+      url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit;
       console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
@@ -178,16 +178,16 @@
       
       indicatorGroup = this.params.indicatorGroup;
       
-      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
-        if (data.error) {
-          console.error("dataerror");
-          return;
-        }
-        console.log(data.indicators);
-        var url = getComparisonData(_.pluck(data.indicators, 'id'));
-      });
       this.load("views/comparison.html", function(HTML) {
         $("#content").html(HTML);
+        $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+          if (data.error) {
+            console.error("dataerror");
+            return;
+          }
+          console.log(data.indicators);
+          var url = getComparisonData(_.pluck(data.indicators, 'id'));
+        });
       });
     });
 
