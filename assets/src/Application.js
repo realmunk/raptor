@@ -139,18 +139,18 @@
     app.get('#/indicatorGroup/:indicatorGroup/graph/Trends', function () {
       
       indicatorGroup = this.params.indicatorGroup;
-      
-      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
-        if (data.error) {
-          console.error("dataerror");
-          return;
-        }
-        console.log(data.indicators);
-        var url = getTrendData(_.pluck(data.indicators, 'id'));
-      });
 
       this.load("views/trends.html", function(HTML) {
         $("#content").html(HTML);
+
+        $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+          if (data.error) {
+            console.error("dataerror");
+            return;
+          }
+          console.log(data.indicators);
+          var url = getTrendData(_.pluck(data.indicators, 'id'));
+        });
       });
 
     });
