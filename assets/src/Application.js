@@ -119,9 +119,46 @@
       });
     });
 
+    function getTrendData(ids) {
+      var url = "/api/analytics1.json?dimension=dx:";
+      _.each(ids, function(id) {
+        url += id+ ";";
+      });
+      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
+      console.log(url);
+      $.getJSON(url, function(data) {
+        if(data.error) {
+          console.error("dataerror2");
+          return;
+        }
+        console.log(data);
+        trendGraph.parseTrend(data, ids);
+      });
+    }
+
+    app.get('#/indicatorGroup/:indicatorGroup/graph/Trends', function () {
+      
+      indicatorGroup = this.params.indicatorGroup;
+      
+      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+        if (data.error) {
+          console.error("dataerror");
+          return;
+        }
+        console.log(data.indicators);
+        var url = getTrendData(_.pluck(data.indicators, 'id'));
+      });
+
+      this.load("views/trends.html", function(HTML) {
+        $("#content").html(HTML);
+      });
+
+    });
+
+
     function getComparisonData(ids) {
       console.log(ids);
-      var url = "/api/analytics1.json?dimension=dx:";
+      var url = "/api/analytics2.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
@@ -150,40 +187,6 @@
         var url = getComparisonData(_.pluck(data.indicators, 'id'));
       });
       this.load("views/comparison.html", function(HTML) {
-        $("#content").html(HTML);
-      });
-    });
-
-    function getTrendData(ids) {
-      var url = "/api/analytics2.json?dimension=dx:";
-      _.each(ids, function(id) {
-        url += id+ ";";
-      });
-      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
-      console.log(url);
-      $.getJSON(url, function(data) {
-        if(data.error) {
-          console.error("dataerror2");
-          return;
-        }
-        console.log(data);
-        trendGraph.parseTrend(data, ids);
-      });
-    }
-
-    app.get('#/indicatorGroup/:indicatorGroup/graph/Trends', function () {
-      
-      indicatorGroup = this.params.indicatorGroup;
-      
-      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
-        if (data.error) {
-          console.error("dataerror");
-          return;
-        }
-        console.log(data.indicators);
-        var url = getTrendData(_.pluck(data.indicators, 'id'));
-      });
-	     this.load("views/trends.html", function(HTML) {
         $("#content").html(HTML);
       });
     });
