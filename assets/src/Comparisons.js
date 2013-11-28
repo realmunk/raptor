@@ -15,10 +15,7 @@
     self.drawComparison = function drawComparison (data, id) {
       var rows = data.rows,
           names = data.metaData.names,
-          plotData = [{
-          "key" : "some key",
-          "values" : []
-          }];
+          plotData = [];
 
       $("#comparisons").append("<h2>" + data.metaData.names[id] + "<h2>");
       $("#comparisons").append('<div id=' + id + '><svg></svg></div>');
