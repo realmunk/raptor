@@ -125,7 +125,7 @@
       _.each(ids, function(id) {
         url += id+ ";";
       });
-      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
+      url += "&dimension=pe:LAST_QUARTER&filter=ou:" + orgUnit;
       console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
@@ -159,7 +159,7 @@
       _.each(ids, function(id) {
         url += id+ ";";
       });
-      url += "&dimension=pe:LAST_QUARTER&filter=ou:" + orgUnit;
+      url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
       console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
@@ -218,10 +218,10 @@
         console.log(data.indicators);
         var url = getProportionData(_.pluck(data.indicators, 'id'));
       });
-	this.load("views/proportions.html", function(HTML) {
-        $("#content").html(HTML);
+  	this.load("views/proportions.html", function(HTML) {
+          $("#content").html(HTML);
+      });
     });
-  });
   };
 
   // Lets start our app!
