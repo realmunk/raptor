@@ -10,23 +10,23 @@
       _.each(ids, function(id) {
         self.drawProportion(data, id);
       });
-    }
+    };
 
     self.drawProportion = function drawProportion (data, id) {
       var rows = data.rows,
           names = data.metaData.names,
-          plotData = [{
-          "key" : "some key",
-          "values" : []
-          }];
+          plotData = [];
 
       $("#proportions").append("<h2>" + data.metaData.names[id] + "<h2>");
       $("#proportions").append('<div id=' + id + '><svg></svg></div>');
 
       _.each(rows, function(row) {
         if (id === row[0]) {
-          plotData[0].values.push({ "label" : names[row[1]],
-          "value" : parseFloat(row[2])});
+          console.log(row[2]);
+          plotData[0].values.push({ 
+            "label" : names[row[1]],
+            "value" : parseFloat(row[2])
+          });
         }
       });
 
