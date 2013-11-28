@@ -167,7 +167,7 @@
           return;
         }
         console.log(data);
-        trendGraph.parseTrend(data);
+        trendGraph.parseTrend(data, ids);
       });
     }
 
@@ -201,7 +201,7 @@
           return;
         }
         console.log(data);
-        proportionGraph.parseProportion(data);
+        proportionGraph.parseProportion(data, ids);
       });
     }
 
