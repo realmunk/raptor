@@ -34,13 +34,13 @@
         }
       });
 
-      $("#comparisons").append('<div class="col-xs-12 col-sm-12 col-lg-6 col-md-6"><div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div></div>');
+      $("#comparisons").append('<div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div>');
 
       nv.addGraph(function () {
         var chart = nv.models.discreteBarChart()
           .x(function(d) { return d.label; })
           .y(function(d) { return d.value; })
-          .margin({"bottom": 60 })
+          .margin({"left": 50, "bottom": 75 })
           .showValues(true);
 
         chart.xAxis.rotateLabels(-45);
