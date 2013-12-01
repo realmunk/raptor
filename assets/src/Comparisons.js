@@ -5,7 +5,7 @@
 
   ns.Comparisons = function () {
     var self = this;
-
+    
     this.parseComparison = function parseComparison (data, ids) { 
       _.each(ids, function(id) {
         console.log(id);
@@ -36,6 +36,11 @@
 
       $("#comparisons").append('<div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div>');
 
+      function setHeight() {
+        var height = $(window).height();
+        $('svg').css('height', height - 60);
+      }
+
       nv.addGraph(function () {
         var chart = nv.models.discreteBarChart()
           .x(function(d) { return d.label; })
@@ -50,10 +55,12 @@
           .transition().duration(500)
           .call(chart);
         
-        nv.utils.windowResize(chart.update);
+        nv.utils.windowResize(function () { 
+          setHeight();
+          chart.update();             
+        });
         return chart;
       });
-
     };
 
   };
