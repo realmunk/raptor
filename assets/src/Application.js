@@ -15,12 +15,13 @@
       graphs = new ns.Comparisons(),
       trendGraph = new ns.Trends(),
       proportionGraph = new ns.Proportions(),
+      helpText = 'Select a graph type and a indicator group',
       user = {},
       orgUnit,
       indicatorGroups,
       indicatorGroup,
-      graphType,
-      first = true;
+      graphType;
+
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
       var isDemo = window.location.href.indexOf('/demo/') !== -1 ? true: false;
@@ -46,12 +47,13 @@
 
     function setGraphType(type) {
       graphType = type;
-      $("#" + type).addClass('active');
+      $('#graphTypes').find('.graphGroup').removeClass('active');
+      $("#" + graphType).children('li').addClass('active');
     }
 
     function setIndicatorGroup(id) {
       indicatorGroup = id;
-      $("#" + id).addClass('active');
+      $("#" + indicatorGroup).addClass('active');
     }
 
     function drawUserData () {
@@ -65,8 +67,6 @@
         $element.append('<a href="javascript:void(0);" id="' + item + '"><li class="graphGroup">' + item + '</li></a>');
         $element.find('#' + item).click(function () {
           setGraphType(item);
-          $element.find('.graphGroup').removeClass('active');
-          $(this).children('li').toggleClass('active');
           app.trigger('interactedEvent');
         });
       });
@@ -105,7 +105,6 @@
     // We define routes, so we can utilize the standard history for browsers
     app.get('#/', function () {
       $('#content').html('');
-
       this.load("/views/frontpage.html", function (HTML) {
         $("#content").append(HTML);
         drawGraphTypes();
@@ -113,11 +112,15 @@
         $.getJSON("api/indicatorGroups.json", function (data) { 
           setIndicatorGroups(data);
           drawIndicatorGroups();
+          if (indicatorGroup && graphType) {
+            setGraphType(graphType);
+            setIndicatorGroup(indicatorGroup);
+          }
         });
 
-        var $triggerButton = $('#loveButton a');
+        app.trigger('interactedEvent');
 
-        $triggerButton.click(function () {
+        $('#loveButton a').click(function () {
           if (indicatorGroup && graphType) {
             app.setLocation('/#/indicatorGroup/' + indicatorGroup + '/graph/' + graphType);
           }
@@ -130,20 +133,24 @@
       var $triggerButton = $('#loveButton a');
       var indicatorObject =_.where(indicatorGroups, { 'id': indicatorGroup })[0];
       if (indicatorGroup && graphType) {
+        helpText = 'Click to load ' + graphType + ' for ' + indicatorObject.name;
         $triggerButton
           .removeClass('disabled')
           .addClass('btn-success')
-          .text('Click to load ' + graphType + ' for ' + indicatorObject.name);
+          .text(helpText);
       } else {
         if (!indicatorGroup && !graphType) {
+          helpText = 'Select a graph type and a indicator group';
           $triggerButton
-            .text('Select a graph type and a indicator group');
+            .text(helpText);
         } else if (indicatorGroup) {
+          helpText = 'Select a graph type';
           $triggerButton
-            .text('Select a graph type');
+            .text(helpText);
         } else {
+          helpText = 'Select an indicator group';
           $triggerButton
-            .text('Select an indicator group');
+            .text(helpText);
         }
       }
     });
