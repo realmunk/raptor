@@ -90,21 +90,3 @@ header h3 {
     display: none;
   }
 }
-
-@media (min-height: 268px) {
-  #comparisons svg {
-    height: 258px;
-  }
-}
-
-@media (min-height: 480px) {
-  #comparisons svg {
-    height: 440px;
-  }
-}
-
-@media (min-height: 800px) {
-  #comparisons svg {
-    height: 760px;
-  }
-}
