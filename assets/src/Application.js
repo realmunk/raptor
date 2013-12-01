@@ -58,7 +58,7 @@
 
     function drawUserData () {
       var $element = $("#title");
-      $element.find('.navbar-brand').text(user.location);
+      $element.find('.navbar-brand').append('<span>'+ user.location + '</span>');
     }
 
     function drawGraphTypes() {
@@ -141,17 +141,14 @@
       } else {
         if (!indicatorGroup && !graphType) {
           helpText = 'Select a graph type and a indicator group';
-          $triggerButton
-            .text(helpText);
         } else if (indicatorGroup) {
           helpText = 'Select a graph type';
-          $triggerButton
-            .text(helpText);
         } else {
           helpText = 'Select an indicator group';
-          $triggerButton
-            .text(helpText);
         }
+        $triggerButton
+          .addClass('disabled')
+          .text(helpText);
       }
     });
 
