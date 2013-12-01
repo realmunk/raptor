@@ -3,7 +3,7 @@ var app = express();
 var port = 1337;
 
 app.get('/', function(req, res){
-  res.sendfile(__dirname + '/views/index.html');
+  res.sendfile(__dirname + '/index.html');
 });
 
 app.get('/testgraphs', function(req, res){

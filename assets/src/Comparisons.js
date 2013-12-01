@@ -34,7 +34,7 @@
         }
       });
 
-      $("#comparisons").append('<div id="' + id + '" class="content"><h4>' + data.metaData.names[id] + '</h4><hr/></div>');
+      $("#comparisons").append('<div class="col-xs-12 col-sm-12 col-lg-6 col-md-6"><div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div></div>');
 
       nv.addGraph(function () {
         var chart = nv.models.discreteBarChart()
