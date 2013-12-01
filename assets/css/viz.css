@@ -63,6 +63,10 @@ header h3 {
   color: white;
 }
 
+.navbar-dhis .navbar-brand span:before {
+  content: " | ";
+}
+
 #loveButton {
   position: fixed;
   bottom: 0;
@@ -76,3 +80,9 @@ header h3 {
   border-radius: 0;
 }
 
+
+@media (max-width: 768px) {
+  .nv-bar text {
+    display: none;
+  }
+}
