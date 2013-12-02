@@ -226,10 +226,10 @@
     function getProportionData(ids) {
       var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
 	  url+="&dimension=dx:"
-      _.each(ids, function(id) {//wrong id
+      _.each(ids, function(id) {
         url += id+ ";";
       });
-      url += "&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit; //TODO
+      url += "&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit; 
       //console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
