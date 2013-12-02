@@ -8,7 +8,6 @@
     
     this.parseComparison = function parseComparison (data, ids) { 
       _.each(ids, function(id) {
-        //console.log(id);
         self.renderComparison(data, id);
       });
     };
@@ -38,7 +37,7 @@
 
       function setHeight() {
         var height = $(window).height();
-        $('svg').css('height', height - 60);
+        $('svg').css('height', height - 75);
       }
 
       nv.addGraph(function () {
@@ -59,6 +58,8 @@
           setHeight();
           chart.update();             
         });
+        setHeight();
+        chart.update();
         return chart;
       });
     };
