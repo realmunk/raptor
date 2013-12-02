@@ -42,10 +42,7 @@
 			
 		
         d3.select("#" + id + " svg")
-          .datum(function (){
-			return [
-			plotData[0]
-		  ];})
+          .datum(plotData[0].values)
           .transition().duration(1200)
           .call(chart);
         
