@@ -158,7 +158,7 @@
         url += id+ ";";
       });
       url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
-      console.log(url);
+      //console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
           console.error("dataerror2");
@@ -180,7 +180,7 @@
             console.error("dataerror");
             return;
           }
-          console.log(data.indicators);
+          //console.log(data.indicators);
           var url = getTrendData(_.pluck(data.indicators, 'id'));
         });
       });
@@ -189,19 +189,19 @@
 
 
     function getComparisonData(ids) {
-      console.log(ids);
+      //console.log(ids);
       var url = "/api/analytics2.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
       url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit;
-      console.log(url);
+      //console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
         }
-        console.log(data);
+        //console.log(data);
         graphs.parseComparison(data, ids);
       });
     }
@@ -217,25 +217,26 @@
             console.error("dataerror");
             return;
           }
-          console.log(data.indicators);
+          //console.log(data.indicators);
           var url = getComparisonData(_.pluck(data.indicators, 'id'));
         });
       });
     });
 
     function getProportionData(ids) {
-      var url = "/api/analytics3.json?dimension=dx:";
-      _.each(ids, function(id) {
+      var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
+	  url+="&dimension=dx:"
+      _.each(ids, function(id) {//wrong id
         url += id+ ";";
       });
-      url += "&dimension=pe:LAST_QUARTER&filter=ou:" + orgUnit; //TODO
-      console.log(url);
+      url += "&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit; //TODO
+      //console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
         }
-        console.log(data);
+        //console.log(data);
         proportionGraph.parseProportion(data, ids);
       });
     }
@@ -251,7 +252,7 @@
           return;
         }
         
-        console.log(data.indicators);
+        //console.log(data.indicators);
         var url = getProportionData(_.pluck(data.indicators, 'id'));
       });
       this.load('views/proportions.html', function(HTML) {

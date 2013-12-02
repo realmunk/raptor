@@ -8,7 +8,7 @@
     
     this.parseComparison = function parseComparison (data, ids) { 
       _.each(ids, function(id) {
-        console.log(id);
+        //console.log(id);
         self.renderComparison(data, id);
       });
     };
