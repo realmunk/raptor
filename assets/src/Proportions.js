@@ -20,17 +20,19 @@
 					"values": []
 				}];
 
-      $("#proportions").append("<h2>" + data.metaData.names[id] + "<h2>");
-      $("#proportions").append('<div id=' + id + '><svg></svg></div>');
+      $("#proportions").append('<div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div>');
+
+      function setHeight() {
+        var height = $(window).height();
+        $('svg').css('height', height - 75);
+      }
 
       _.each(rows, function(row) {
         if (id === row[1]) {
-          //console.log(row[1]);
           plotData[0].values.push({ 
             "label" : names[row[0]],
             "value" : parseFloat(row[2])
           });
-		  //console.log(plotData[0]);
         }
       });
 
@@ -41,12 +43,19 @@
 			.showLabels(true);
 			
 		
-        d3.select("#" + id + " svg")
+        d3.select("#" + id).append('svg:svg')
           .datum(plotData[0].values)
           .transition().duration(1200)
           .call(chart);
         
-        nv.utils.windowResize(chart.update);
+        nv.utils.windowResize(function () {
+          setHeight();
+          chart.update();
+        });
+
+        setHeight();
+        chart.update();
+
         return chart;
       });
 

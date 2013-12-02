@@ -116,9 +116,9 @@
             setGraphType(graphType);
             setIndicatorGroup(indicatorGroup);
           }
+          app.trigger('interactedEvent');
         });
 
-        app.trigger('interactedEvent');
 
         $('#loveButton a').click(function () {
           if (indicatorGroup && graphType) {
