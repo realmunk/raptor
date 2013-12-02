@@ -29,7 +29,7 @@
 
       _.each(rows, function(row) {
         if (id === row[0]) {
-          plotData[0].values.push({x : new Date(row[1]) , y: parseFloat(row[2])});
+          plotData[0].values.push({x : new Date(row[1].slice(0,4),row[1].slice(4,6)) , y: parseFloat(row[2])});
         }
       });
 
