@@ -58,7 +58,7 @@
 
           return chart;
         } catch (e) {
-          console.warn("BRORA");
+         console.warn("We just caught: " + e);
         }
       });
 
