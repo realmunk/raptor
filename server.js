@@ -33,7 +33,7 @@ app.get('/api/indicatorGroups.json', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/indicatorGroups.json');
 });
 
-app.get('/api/indicatorGroup/:id', function(req, res){
+app.get('/api/indicatorGroups/:id', function(req, res){
   res.sendfile(__dirname + '/assets/testdata/indicatorGroup.json');
 });
 

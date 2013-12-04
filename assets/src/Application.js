@@ -157,7 +157,7 @@
     });
 
     function getTrendData(ids) {
-      var url = "/api/analytics.json?dimension=dx:";
+      var url = "/api/analytics1.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
@@ -194,7 +194,7 @@
 
     function getComparisonData(ids) {
       //console.log(ids);
-      var url = "/api/analytics.json?dimension=dx:";
+      var url = "/api/analytics2.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
@@ -228,7 +228,7 @@
     });
 
     function getProportionData(ids) {
-      var url = "/api/analytics.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
+      var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
 	    url += "&dimension=dx:";
 
       _.each(ids, function(id) {
