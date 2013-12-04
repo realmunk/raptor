@@ -16,7 +16,7 @@
 			var rows = data.rows,
 				names = data.metaData.names,
 				plotData = [{
-					"key": id,
+					"key": names[id],
 					"values": []
 				}];
 
