@@ -1,13 +1,13 @@
 {
-    "version": "0.3.2",
-    "name": "Raptor Visualizer!!",
-    "description": "This is a pro app",
+    "version": "0.4.4",
+    "name": "Raptor Visualizer!!!",
+    "description": "Visualizer webapp",
     "launch_path": "index.html",
     "icons": {
     },
     "developer": {
         "name": "Bendik, Stian, Kristian og Martin",
-        "url": "http://Bendik.com"
+        "url": "http://raptoriscool.com"
     },
     "default_locale": "en",
     "activities": {

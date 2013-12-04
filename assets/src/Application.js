@@ -25,8 +25,10 @@
 
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
+		console.log("CONSTRUCTOR!");
       $.getJSON(apiBaseURL + 'manifest.webapp', function (data) {
         apiBaseURL = data.activities.dhis.href;
+		console.log("URL: " + apiBaseURL);
         if (apiBaseURL == '*') {
           apiBaseURL = '';
         }
