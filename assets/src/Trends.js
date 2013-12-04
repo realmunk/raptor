@@ -40,6 +40,8 @@
         try {
           var chart = nv.models.lineChart();
           chart.lines.xScale(d3.time.scale.utc());
+          
+          chart.margin({"left": 50, "bottom": 75 });
 
           chart.xAxis
             .tickFormat(function (d) {
@@ -48,26 +50,26 @@
             .ticks(d3.time.days, 1)
             .axisLabel('Time');
 
-  				chart.yAxis
-  					.axisLabel(id)
-  					.tickFormat(d3.format('.02f'));
+            chart.yAxis
+              .axisLabel(id)
+              .tickFormat(d3.format('.02f'));
 
-  				chart.xAxis.rotateLabels(-45);
+            chart.xAxis.rotateLabels(-45);
 
-  				d3.select("#" + id).append('svg:svg')
-  					.datum(plotData)
-  					.transition().duration(500)
-  					.call(chart);
+            d3.select("#" + id).append('svg:svg')
+              .datum(plotData)
+              .transition().duration(500)
+              .call(chart);
 
-  				nv.utils.windowResize(function () {
-            setHeight();
-            chart.update(); 
-          });
+            nv.utils.windowResize(function () {
+              setHeight();
+              chart.update(); 
+            });
           setHeight();
           chart.update();
           return chart;
         } catch (e) {
-          console.warn("We just caught: " + e);
+          console.warn("We just caught an error");
         }
       });
 		};

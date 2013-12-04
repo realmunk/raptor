@@ -9,7 +9,6 @@
     this.parseProportion = function parseProportion (data, ids) { 
       _.each(ids, function(id) {
         self.drawProportion(data, id);
-        console.warn("Stop going back.");
       });
     };
 
@@ -58,7 +57,7 @@
 
           return chart;
         } catch (e) {
-         console.warn("We just caught: " + e);
+         console.warn("We just caught an error.");
         }
       });
 
