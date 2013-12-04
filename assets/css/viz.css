@@ -1,20 +1,31 @@
 body {
   background: #f1f1f1;
+  padding-bottom: 60px;
+  padding-top: 80px;
 }
 
-header {
-  border-radius: 2px;
+.content {
+  border-radius: 0px;
   box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.25);
   background: white;
-  padding: 1em;
+  padding: 1em 0;
   margin-bottom: 1em;
 }
 
+.content h4 {
+  padding: 0 10px;
+}
+
+header hr {
+  border: 0;
+  height: 1px;
+  background: white; 
+}
 header h3 {
   margin: 0;
 }
 
-#indicators {
+#graphTypes, #indicators {
   border-radius: 2px;
   box-shadow: 0px 0px 4px 0 rgba(0, 0, 0, 0.25);
   background: #26393d;
@@ -22,20 +33,31 @@ header h3 {
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-bottom: 40px;
 }
 
-.indicatorGroup:first-child {
+#graphTypes a, #indicators a  {
+  color: white;
+}
+
+.graphGroup:first-child, .indicatorGroup:first-child {
   border-top: 0;
 }
 
-.indicatorGroup {
+.graphGroup, .indicatorGroup {
   padding: 10px 20px;
   border-top: 1px solid #f1f1f1;
 }
 
-.indicatorGroup:hover {
+.active, .graphGroup:hover ,.indicatorGroup:hover {
   background: white;
   color: #26393d;
+}
+
+.indicatorGroup > div {
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .navbar-dhis {
@@ -46,6 +68,26 @@ header h3 {
   color: white;
 }
 
-div#chart, #pie, #histo svg {
-  height: 400px;
+.navbar-dhis .navbar-brand span:before {
+  content: " | ";
+}
+
+#loveButton {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#loveButton .btn {
+  padding: 20px;
+  border: 0;
+  border-radius: 0;
+}
+
+
+@media (max-width: 768px) {
+  .nv-bar text {
+    display: none;
+  }
 }

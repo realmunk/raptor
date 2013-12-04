@@ -32,6 +32,10 @@ http://apps.dhis2.org/demo/api/organisationUnits/ImspTQPwCqd.json
 3. pick indicator group
 
 4. Get graph for each indicator Lzg9LtG1xg3;
+new:
+http://apps.dhis2.org/demo/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqAdimension=dx:Lzg9LtG1xg3;puykO1tbcdi;ReUHfIn0pTQ;AUqdhY4mpvp;c8fABiNpT0B;sB79w2hiLp8;Uvn6LCg7dVU;OdiHJayrsKo;dwEq7wi6nXV;Tt5TAvdfdVK;&filter=pe:LAST_QUARTER&filter=ou:ImspTQPwCqd 
+
+
 http://apps.dhis2.org/demo/api/analytics.json?dimension=dx:$INDICATOR_ID$&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER
 http://apps.dhis2.org/demo/api/analytics.json?dimension=dx:puykO1tbcdi&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER
 
@@ -47,4 +51,9 @@ Data should be represented with a pie chart.
 2. 
 
 4. Get comparison between Org Unit Types for each indicator
-http://apps.dhis2.org/demo/api/analytics.json?dimension=J5jldMd8OHv:tDZVQ1WtwpA;gzcv65VyaGq;uYxK4wmcPqA;CXw2yu5fodb&dimension=dx:joWPywO7yOJ;Lzg9LtG1xg3;puykO1tbcdi;ReUHfIn0pTQ&filter=pe:LAST_QUARTER
+
+http://apps.dhis2.org/demo/api/analytics.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA&dimension=dx:Uvn6LCg7dVU&filter=ou:ImspTQPwCqd&filter=pe:LAST_QUARTER
+
+
+http://apps.dhis2.org/demo/api/analytics.json?dimension=J5jldMd8OHv:tDZVQ1WtwpA&dimension=dx:joWPywO7yOJ&filter=pe:LAST_QUARTER
+

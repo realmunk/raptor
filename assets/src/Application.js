@@ -7,15 +7,21 @@
   ns.Application = function () {
 
     var graphTypes = ['Proportions', 'Trends', 'Comparison'],
-      app = $.sammy('#content'),
+      app = $.sammy('#content', function () {
+        this.notFound = function () {
+          this.setLocation('/#/');
+        };
+      }),
       graphs = new ns.Comparisons(),
       trendGraph = new ns.Trends(),
       proportionGraph = new ns.Proportions(),
+      helpText = 'Select a graph type and a indicator group',
       user = {},
       orgUnit,
       indicatorGroups,
       indicatorGroup,
       graphType;
+
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
       var isDemo = window.location.href.indexOf('/demo/') !== -1 ? true: false;
@@ -39,27 +45,29 @@
       indicatorGroups = data.indicatorGroups;
     }
 
-
     function setGraphType(type) {
       graphType = type;
+      $('#graphTypes').find('.graphGroup').removeClass('active');
+      $("#" + graphType).children('li').addClass('active');
     }
 
-    function setIndicator(id) {
+    function setIndicatorGroup(id) {
       indicatorGroup = id;
+      $("#" + indicatorGroup).addClass('active');
     }
+
     function drawUserData () {
       var $element = $("#title");
-      $element.find('.navbar-brand').text(user.location);
+      $element.find('.navbar-brand').append('<span>'+ user.location + '</span>');
     }
 
     function drawGraphTypes() {
       var $element = $("#graphTypes");
       $.each(graphTypes, function (index, item) {
-        $element.append('<a href="#/indicatorGroup/' + indicatorGroup + '/graph/' + item + '" class="btn btn-info" id="' + item + '">' + item + '</a>');
+        $element.append('<a href="javascript:void(0);" id="' + item + '"><li class="graphGroup">' + item + '</li></a>');
         $element.find('#' + item).click(function () {
           setGraphType(item);
-          $element.find('.btn-info').removeClass('active');
-          $(this).toggleClass('active');
+          app.trigger('interactedEvent');
         });
       });
     }
@@ -71,6 +79,7 @@
       Then we select the appended item and create a click function for the baby. 
       The click function sets the proper class, and the correct indicator.
     */
+
     function drawIndicatorGroups() {
       var $allElements, 
         $element,
@@ -80,13 +89,14 @@
 
       _.each(indicatorGroups, function (indicatorGroup) {
         date = new Date(indicatorGroup.lastUpdated);
-        $allElements.append('<a href="#/indicatorGroup/' + indicatorGroup.id + '"><li class="indicatorGroup" id="' + indicatorGroup.id +'">' + '<span class="name">' + indicatorGroup.name + '<span class="pull-right">' + date.toLocaleString() + '</span></li></a>');
+        $allElements.append('<a href="javascript:void(0);"><li class="indicatorGroup" id="' + indicatorGroup.id +'">' + '<div>' + indicatorGroup.name + '</div><div class="text-right">' + date.toLocaleString() + '</div></li></a>');
         $element = $allElements.find('#' + indicatorGroup.id);
 
         $element.click(function () {
-          setIndicator(indicatorGroup.id);
           $allElements.find('li').removeClass('active');
           $(this).toggleClass('active');
+          setIndicatorGroup(indicatorGroup.id);
+          app.trigger('interactedEvent');
         });
       });
     }
@@ -94,135 +104,164 @@
     // OK ... so this is where the magic happens. 
     // We define routes, so we can utilize the standard history for browsers
     app.get('#/', function () {
-
-      this.load("/views/indicators.html", function (HTML) {
-
-        $("#content").html(HTML);
+      $('#content').html('');
+      this.load("/views/frontpage.html", function (HTML) {
+        $("#content").append(HTML);
+        drawGraphTypes();
 
         $.getJSON("api/indicatorGroups.json", function (data) { 
           setIndicatorGroups(data);
           drawIndicatorGroups();
+          if (indicatorGroup && graphType) {
+            setGraphType(graphType);
+            setIndicatorGroup(indicatorGroup);
+          }
+          app.trigger('interactedEvent');
         });
 
-      });
 
-    });
-
-    app.get('#/indicatorGroup/:indicatorGroup', function () {
-      
-      indicatorGroup = this.params.indicatorGroup;
-      
-      this.load("/views/graphtypes.html", function (HTML) {
-        $("#content").html(HTML);
-        drawGraphTypes();
-
+        $('#loveButton a').click(function () {
+          if (indicatorGroup && graphType) {
+            app.setLocation('/#/indicatorGroup/' + indicatorGroup + '/graph/' + graphType);
+          }
+        });
       });
     });
 
-    function getComparisonData(ids) {
-      console.log(ids);
+
+    app.bind('interactedEvent', function () {
+      var $triggerButton = $('#loveButton a');
+      var indicatorObject =_.where(indicatorGroups, { 'id': indicatorGroup })[0];
+      if (indicatorGroup && graphType) {
+        helpText = 'Click to load ' + graphType + ' for ' + indicatorObject.name;
+        $triggerButton
+          .removeClass('disabled')
+          .addClass('btn-success')
+          .text(helpText);
+      } else {
+        if (!indicatorGroup && !graphType) {
+          helpText = 'Select a graph type and a indicator group';
+        } else if (indicatorGroup) {
+          helpText = 'Select a graph type';
+        } else {
+          helpText = 'Select an indicator group';
+        }
+        $triggerButton
+          .addClass('disabled')
+          .text(helpText);
+      }
+    });
+
+    function getTrendData(ids) {
       var url = "/api/analytics1.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
       url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
-      console.log(url);
+      //console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
         }
-        console.log(data);
-        graphs.parseComparison(data, ids);
-      });
-    }
-
-    app.get('#/indicatorGroup/:indicatorGroup/graph/Comparison', function () {
-      
-      indicatorGroup = this.params.indicatorGroup;
-      
-      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
-        if (data.error) {
-          console.error("dataerror");
-          return;
-        }
-        console.log(data.indicators);
-        var url = getComparisonData(_.pluck(data.indicators, 'id'));
-      });
-      this.load("views/comparison.html", function(HTML) {
-        $("#content").html(HTML);
-      });
-    });
-
-    function getTrendData(ids) {
-      var url = "/api/analytics2.json?dimension=dx:";
-      _.each(ids, function(id) {
-        url += id+ ";";
-      });
-      url += "&dimension=pe:LAST_QUARTER&filter=ou:" + orgUnit;
-      console.log(url);
-      $.getJSON(url, function(data) {
-        if(data.error) {
-          console.error("dataerror2");
-          return;
-        }
-        console.log(data);
         trendGraph.parseTrend(data, ids);
       });
     }
 
     app.get('#/indicatorGroup/:indicatorGroup/graph/Trends', function () {
-      
-      indicatorGroup = this.params.indicatorGroup;
-      
-      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
-        if (data.error) {
-          console.error("dataerror");
-          return;
-        }
-        console.log(data.indicators);
-        var url = getTrendData(_.pluck(data.indicators, 'id'));
-      });
-	     this.load("views/trends.html", function(HTML) {
+      setGraphType('Trends');
+      setIndicatorGroup(this.params.indicatorGroup);
+
+      this.load("views/trends.html", function(HTML) {
         $("#content").html(HTML);
+
+        $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+          if (data.error) {
+            console.error("dataerror");
+            return;
+          }
+          //console.log(data.indicators);
+          var url = getTrendData(_.pluck(data.indicators, 'id'));
+        });
       });
+
     });
 
-    function getProportionData(ids) {
-      var url = "/api/analytics3.json?dimension=dx:";
+
+    function getComparisonData(ids) {
+      //console.log(ids);
+      var url = "/api/analytics2.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
-      url += "&dimension=pe:LAST_QUARTER&filter=ou:" + orgUnit; //TODO
-      console.log(url);
+      url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit;
+      //console.log(url);
       $.getJSON(url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
         }
-        console.log(data);
+        //console.log(data);
+        graphs.parseComparison(data, ids);
+      });
+    }
+
+    app.get('#/indicatorGroup/:indicatorGroup/graph/Comparison', function () {
+      setGraphType('Comparison');
+      setIndicatorGroup(this.params.indicatorGroup);
+
+      this.load("views/comparison.html", function(HTML) {
+        $("#content").html(HTML);
+        $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+          if (data.error) {
+            console.error("dataerror");
+            return;
+          }
+          //console.log(data.indicators);
+          var url = getComparisonData(_.pluck(data.indicators, 'id'));
+        });
+      });
+    });
+
+    function getProportionData(ids) {
+      var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
+	  url+="&dimension=dx:"
+      _.each(ids, function(id) {
+        url += id+ ";";
+      });
+      url += "&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit; 
+      //console.log(url);
+      $.getJSON(url, function(data) {
+        if(data.error) {
+          console.error("dataerror2");
+          return;
+        }
+        //console.log(data);
         proportionGraph.parseProportion(data, ids);
       });
     }
 
     app.get('#/indicatorGroup/:indicatorGroup/graph/Proportions', function () {
       
-      indicatorGroup = this.params.indicatorGroup;
-      
+      setGraphType('Proportions');
+      setIndicatorGroup(this.params.indicatorGroup);
+
       $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
         if (data.error) {
           console.error("dataerror");
           return;
         }
         
-        console.log(data.indicators);
+        //console.log(data.indicators);
         var url = getProportionData(_.pluck(data.indicators, 'id'));
       });
-	this.load("views/proportions.html", function(HTML) {
+      this.load('views/proportions.html', function(HTML) {
         $("#content").html(HTML);
+      });
     });
-  });
+
   };
+
 
   // Lets start our app!
   $(document).ready(function () {
