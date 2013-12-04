@@ -47,4 +47,4 @@ Data should be represented with a pie chart.
 2. 
 
 4. Get comparison between Org Unit Types for each indicator
-http://apps.dhis2.org/demo/api/analytics.json?dimension=J5jldMd8OHv:tDZVQ1WtwpA&dimension=dx:joWPywO7yOJ&filter=pe:LAST_QUARTER
+http://apps.dhis2.org/demo/api/analytics.json?dimension=J5jldMd8OHv:tDZVQ1WtwpA;gzcv65VyaGq;uYxK4wmcPqA;CXw2yu5fodb&dimension=dx:joWPywO7yOJ;Lzg9LtG1xg3;puykO1tbcdi;ReUHfIn0pTQ&filter=pe:LAST_QUARTER

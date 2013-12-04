@@ -41,6 +41,8 @@
         d3.select("#" + id + " svg")
           .datum(plotData)
           .transition().duration(500)
+		  .attr("width", 400)
+          .attr("height",130)
           .call(chart);
         
         nv.utils.windowResize(chart.update);
