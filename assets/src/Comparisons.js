@@ -63,7 +63,7 @@
           chart.update();
           return chart;
         } catch (e) {
-         console.warn("We just caught: " + e);
+         console.warn("We just caught an error");
         }
       });
     };
