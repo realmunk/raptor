@@ -16,6 +16,7 @@
       trendGraph = new ns.Trends(),
       proportionGraph = new ns.Proportions(),
       helpText = 'Select a graph type and a indicator group',
+      apiBaseURL = '',
       user = {},
       orgUnit,
       indicatorGroups,
@@ -24,12 +25,13 @@
 
     // This is used as a "constructor", gets and sets our data on initiation 
     this.run = function run () {
-      var isDemo = window.location.href.indexOf('/demo/') !== -1 ? true: false;
-      if (isDemo) {
-        $.getJSON("/demo/api/me.json", setUserData); 
-      } else {
-        $.getJSON("/api/me.json", setUserData);
-      }
+      $.getJSON(apiBaseURL + 'manifest.webapp', function (data) {
+        apiBaseURL = data.activities.dhis.href;
+        if (apiBaseURL == '*') {
+          apiBaseURL = '';
+        }
+        $.getJSON(apiBaseURL + '/api/me.json', setUserData); 
+      });      
       app.run("#/");
     };
 
@@ -109,7 +111,7 @@
         $("#content").append(HTML);
         drawGraphTypes();
 
-        $.getJSON("api/indicatorGroups.json", function (data) { 
+        $.getJSON(apiBaseURL + "api/indicatorGroups.json", function (data) { 
           setIndicatorGroups(data);
           drawIndicatorGroups();
           if (indicatorGroup && graphType) {
@@ -159,7 +161,7 @@
       });
       url += "&dimension=pe:LAST_12_MONTHS&filter=ou:" + orgUnit;
       //console.log(url);
-      $.getJSON(url, function(data) {
+      $.getJSON(apiBaseURL + url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
@@ -175,7 +177,7 @@
       this.load("views/trends.html", function(HTML) {
         $("#content").html(HTML);
 
-        $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+        $.getJSON(apiBaseURL + "/api/indicatorGroup/" + indicatorGroup, function(data) {
           if (data.error) {
             console.error("dataerror");
             return;
@@ -196,7 +198,7 @@
       });
       url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit;
       //console.log(url);
-      $.getJSON(url, function(data) {
+      $.getJSON(apiBaseURL + url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
@@ -212,7 +214,7 @@
 
       this.load("views/comparison.html", function(HTML) {
         $("#content").html(HTML);
-        $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+        $.getJSON(apiBaseURL + "/api/indicatorGroup/" + indicatorGroup, function(data) {
           if (data.error) {
             console.error("dataerror");
             return;
@@ -225,18 +227,18 @@
 
     function getProportionData(ids) {
       var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
-	  url+="&dimension=dx:"
+	    url += "&dimension=dx:";
+
       _.each(ids, function(id) {
         url += id+ ";";
       });
+
       url += "&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit; 
-      //console.log(url);
-      $.getJSON(url, function(data) {
+      $.getJSON(apiBaseURL + url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
         }
-        //console.log(data);
         proportionGraph.parseProportion(data, ids);
       });
     }
@@ -246,13 +248,12 @@
       setGraphType('Proportions');
       setIndicatorGroup(this.params.indicatorGroup);
 
-      $.getJSON("/api/indicatorGroup/" + indicatorGroup, function(data) {
+      $.getJSON(apiBaseURL + "/api/indicatorGroup/" + indicatorGroup, function(data) {
         if (data.error) {
           console.error("dataerror");
           return;
         }
         
-        //console.log(data.indicators);
         var url = getProportionData(_.pluck(data.indicators, 'id'));
       });
       this.load('views/proportions.html', function(HTML) {
@@ -261,7 +262,6 @@
     });
 
   };
-
 
   // Lets start our app!
   $(document).ready(function () {
