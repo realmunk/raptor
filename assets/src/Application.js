@@ -184,8 +184,7 @@
             console.error("dataerror");
             return;
           }
-          //console.log(data.indicators);
-          var url = getTrendData(_.pluck(data.indicators, 'id'));
+          getTrendData(_.pluck(data.indicators, 'id'));
         });
       });
 
@@ -199,13 +198,11 @@
         url += id+ ";";
       });
       url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER";
-      //console.log(url);
       $.getJSON(apiBaseURL + url, function(data) {
         if(data.error) {
           console.error("dataerror2");
           return;
         }
-        //console.log(data);
         graphs.parseComparison(data, ids);
       });
     }
@@ -221,15 +218,14 @@
             console.error("dataerror");
             return;
           }
-          //console.log(data.indicators);
-          var url = getComparisonData(_.pluck(data.indicators, 'id'));
+          getComparisonData(_.pluck(data.indicators, 'id'));
         });
       });
     });
 
     function getProportionData(ids) {
       var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
-	    url += "&dimension=dx:";
+      url += "&dimension=dx:";
 
       _.each(ids, function(id) {
         url += id+ ";";
@@ -250,17 +246,17 @@
       setGraphType('Proportions');
       setIndicatorGroup(this.params.indicatorGroup);
 
-      $.getJSON(apiBaseURL + "/api/indicatorGroups/" + indicatorGroup, function(data) {
-        if (data.error) {
-          console.error("dataerror");
-          return;
-        }
-        
-        var url = getProportionData(_.pluck(data.indicators, 'id'));
-      });
       this.load('views/proportions.html', function(HTML) {
+        $.getJSON(apiBaseURL + "/api/indicatorGroups/" + indicatorGroup, function(data) {
+          if (data.error) {
+            console.error("dataerror");
+            return;
+          }        
+          getProportionData(_.pluck(data.indicators, 'id'));
+        });
         $("#content").html(HTML);
       });
+    
     });
 
   };
