@@ -6,6 +6,10 @@ app.get('/', function(req, res){
   res.sendfile(__dirname + '/index.html');
 });
 
+app.get('/manifest.webapp', function(req, res){
+  res.sendfile(__dirname + '/manifest.webapp');
+});
+
 app.get('/testgraphs', function(req, res){
   res.sendfile(__dirname + '/views/testgraphs.html');
 });
