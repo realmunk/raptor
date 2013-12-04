@@ -109,7 +109,7 @@
     // We define routes, so we can utilize the standard history for browsers
     app.get('#/', function () {
       $('#content').html('');
-      this.load("/views/frontpage.html", function (HTML) {
+      this.load("views/frontpage.html", function (HTML) {
         $("#content").append(HTML);
         drawGraphTypes();
 
