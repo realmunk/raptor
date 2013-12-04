@@ -9,7 +9,7 @@
     var graphTypes = ['Proportions', 'Trends', 'Comparison'],
       app = $.sammy('#content', function () {
         this.notFound = function () {
-          this.setLocation('/#/');
+          this.setLocation('#/');
         };
       }),
       graphs = new ns.Comparisons(),
@@ -113,7 +113,7 @@
         $("#content").append(HTML);
         drawGraphTypes();
 
-        $.getJSON(apiBaseURL + "api/indicatorGroups.json", function (data) { 
+        $.getJSON(apiBaseURL + "/api/indicatorGroups.json", function (data) { 
           setIndicatorGroups(data);
           drawIndicatorGroups();
           if (indicatorGroup && graphType) {
@@ -126,7 +126,7 @@
 
         $('#loveButton a').click(function () {
           if (indicatorGroup && graphType) {
-            app.setLocation('/#/indicatorGroup/' + indicatorGroup + '/graph/' + graphType);
+            app.setLocation('#/indicatorGroup/' + indicatorGroup + '/graph/' + graphType);
           }
         });
       });
@@ -157,7 +157,7 @@
     });
 
     function getTrendData(ids) {
-      var url = "/api/analytics1.json?dimension=dx:";
+      var url = "/api/analytics.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
@@ -179,7 +179,7 @@
       this.load("views/trends.html", function(HTML) {
         $("#content").html(HTML);
 
-        $.getJSON(apiBaseURL + "/api/indicatorGroup/" + indicatorGroup, function(data) {
+        $.getJSON(apiBaseURL + "/api/indicatorGroups/" + indicatorGroup, function(data) {
           if (data.error) {
             console.error("dataerror");
             return;
@@ -194,11 +194,11 @@
 
     function getComparisonData(ids) {
       //console.log(ids);
-      var url = "/api/analytics2.json?dimension=dx:";
+      var url = "/api/analytics.json?dimension=dx:";
       _.each(ids, function(id) {
         url += id+ ";";
       });
-      url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER&filter=ou:" + orgUnit;
+      url += "&dimension=ou:USER_ORGUNIT_CHILDREN&filter=pe:LAST_QUARTER";
       //console.log(url);
       $.getJSON(apiBaseURL + url, function(data) {
         if(data.error) {
@@ -216,7 +216,7 @@
 
       this.load("views/comparison.html", function(HTML) {
         $("#content").html(HTML);
-        $.getJSON(apiBaseURL + "/api/indicatorGroup/" + indicatorGroup, function(data) {
+        $.getJSON(apiBaseURL + "/api/indicatorGroups/" + indicatorGroup, function(data) {
           if (data.error) {
             console.error("dataerror");
             return;
@@ -228,7 +228,7 @@
     });
 
     function getProportionData(ids) {
-      var url = "/api/analytics3.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
+      var url = "/api/analytics.json?dimension=J5jldMd8OHv:CXw2yu5fodb;EYbopBOJWsW;RXL3lPSK8oG;tDZVQ1WtwpA;uYxK4wmcPqA";
 	    url += "&dimension=dx:";
 
       _.each(ids, function(id) {
@@ -250,7 +250,7 @@
       setGraphType('Proportions');
       setIndicatorGroup(this.params.indicatorGroup);
 
-      $.getJSON(apiBaseURL + "/api/indicatorGroup/" + indicatorGroup, function(data) {
+      $.getJSON(apiBaseURL + "/api/indicatorGroups/" + indicatorGroup, function(data) {
         if (data.error) {
           console.error("dataerror");
           return;

@@ -1,6 +1,6 @@
 {
-    "version": "0.4.4",
-    "name": "Raptor Visualizer!!!",
+    "version": "0.5.0",
+    "name": "Raptor Visualizer!",
     "description": "Visualizer webapp",
     "launch_path": "index.html",
     "icons": {
