@@ -7,10 +7,10 @@
 		var self = this;
 
 		this.parseTrend = function parseTrend(data, ids) {
-		      _.each(ids, function(id) {
+      _.each(ids, function(id) {
         self.drawTrend(data, id);
       });
-		}
+		};
 
 		self.drawTrend = function drawTrend(data, id) {
 			var rows = data.rows,
@@ -20,8 +20,7 @@
 					"values": []
 				}];
 
-			$("#trends").append("<h2>" + data.metaData.names[id] + "<h2>");
-			$("#trends").append('<div id=' + id + '><svg></svg></div>');
+			$("#trends").append('<div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div>');
 
 			_.each(rows, function (row) {
 				if (id === row[0]) {
@@ -31,6 +30,11 @@
 					});
 				}
 			});
+
+      function setHeight() {
+        var height = $(window).height();
+        $('svg').css('height', height - 150);
+      }
 
 			nv.addGraph(function () {
 				var chart = nv.models.lineChart();
@@ -49,12 +53,17 @@
 
 				chart.xAxis.rotateLabels(-45);
 
-				d3.select("#" + id + " svg")
+				d3.select("#" + id).append('svg:svg')
 					.datum(plotData)
 					.transition().duration(500)
 					.call(chart);
 
-				nv.utils.windowResize(chart.update);
+				nv.utils.windowResize(function () {
+          setHeight();
+          chart.update(); 
+        });
+        setHeight();
+        chart.update();
 				return chart;
 			});
 		};
