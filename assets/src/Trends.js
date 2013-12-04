@@ -39,13 +39,14 @@
 			nv.addGraph(function () {
 				var chart = nv.models.lineChart();
 
-				d3.scale.ordinal();
+        chart.lines.xScale(d3.time.scale.utc());
 
 				chart.xAxis
-					.tickFormat(function (d) {
-						return d3.time.format('%b %y')(new Date(d));
-					})
-				.axisLabel('Time');
+          .tickFormat(function (d) {
+            return d3.time.format('%b %y')(new Date(d));
+          })
+          .ticks(d3.time.days, 1)
+          .axisLabel('Time');
 
 				chart.yAxis
 					.axisLabel(id)
