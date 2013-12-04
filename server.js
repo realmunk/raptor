@@ -3,7 +3,7 @@ var app = express();
 var port = 1337;
 
 app.get('/', function(req, res){
-  res.sendfile(__dirname + '/views/index.html');
+  res.sendfile(__dirname + '/index.html');
 });
 
 app.get('/testgraphs', function(req, res){
@@ -34,15 +34,15 @@ app.get('/api/indicatorGroup/:id', function(req, res){
 });
 
 app.get('/api/analytics1.js?:anything', function(req, res){
-  res.sendfile(__dirname + '/assets/testdata/task1_data.json');
+  res.sendfile(__dirname + '/assets/testdata/trends.json');
 });
 
 app.get('/api/analytics2.js?:anything', function(req, res){
-  res.sendfile(__dirname + '/assets/testdata/task2_data.json');
+  res.sendfile(__dirname + '/assets/testdata/comparison.json');
 });
 
 app.get('/api/analytics3.js?:anything', function(req, res){
-  res.sendfile(__dirname + '/assets/testdata/task3_data.json');
+  res.sendfile(__dirname + '/assets/testdata/proportions.json');
 });
 
 

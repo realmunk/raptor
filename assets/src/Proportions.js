@@ -10,42 +10,54 @@
       _.each(ids, function(id) {
         self.drawProportion(data, id);
       });
-    }
+    };
 
     self.drawProportion = function drawProportion (data, id) {
       var rows = data.rows,
           names = data.metaData.names,
           plotData = [{
-          "key" : "some key",
-          "values" : []
-          }];
+					"key": id,
+					"values": []
+				}];
 
-      $("#proportions").append("<h2>" + data.metaData.names[id] + "<h2>");
-      $("#proportions").append('<div id=' + id + '><svg></svg></div>');
+      $("#proportions").append('<div class="content" id="' + id + '"><h4>' + data.metaData.names[id] + '</h4><hr/></div>');
+
+      function setHeight() {
+        var height = $(window).height();
+        $('svg').css('height', height - 75);
+      }
 
       _.each(rows, function(row) {
-        if (id === row[0]) {
-          plotData[0].values.push({ "label" : names[row[1]],
-          "value" : parseFloat(row[2])});
+        if (id === row[1]) {
+          plotData[0].values.push({ 
+            "label" : names[row[0]],
+            "value" : parseFloat(row[2])
+          });
         }
       });
 
       nv.addGraph(function () {
         var chart = nv.models.pieChart()
-          .x(function(d) { return d.label; })
-          .y(function(d) { return d.value; })
-          .showValues(true);
 
-        chart.xAxis.rotateLabels(-45);
+			.x(function(d) { return d.label; })
+			.y(function(d) { return d.value; })
+			.showLabels(true);
+			
+		
+        d3.select("#" + id).append('svg:svg')
+          .datum(plotData[0].values)
+          .transition().duration(1200)
 
-        d3.select("#" + id + " svg")
-          .datum(plotData)
-          .transition().duration(500)
-		  .attr("width", 400)
-          .attr("height",130)
           .call(chart);
         
-        nv.utils.windowResize(chart.update);
+        nv.utils.windowResize(function () {
+          setHeight();
+          chart.update();
+        });
+
+        setHeight();
+        chart.update();
+
         return chart;
       });
 
