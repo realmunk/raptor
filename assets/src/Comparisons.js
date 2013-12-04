@@ -41,26 +41,30 @@
       }
 
       nv.addGraph(function () {
-        var chart = nv.models.discreteBarChart()
-          .x(function(d) { return d.label; })
-          .y(function(d) { return d.value; })
-          .margin({"left": 50, "bottom": 75 })
-          .showValues(true);
+        try {
+          var chart = nv.models.discreteBarChart()
+            .x(function(d) { return d.label; })
+            .y(function(d) { return d.value; })
+            .margin({"left": 50, "bottom": 75 })
+            .showValues(true);
 
-        chart.xAxis.rotateLabels(-45);
+          chart.xAxis.rotateLabels(-45);
 
-        d3.select("#" + id).append('svg:svg')
-          .datum(plot)
-          .transition().duration(500)
-          .call(chart);
-        
-        nv.utils.windowResize(function () { 
+          d3.select("#" + id).append('svg:svg')
+            .datum(plot)
+            .transition().duration(500)
+            .call(chart);
+          
+          nv.utils.windowResize(function () { 
+            setHeight();
+            chart.update();             
+          });
           setHeight();
-          chart.update();             
-        });
-        setHeight();
-        chart.update();
-        return chart;
+          chart.update();
+          return chart;
+        } catch (e) {
+         console.warn("We just caught: " + e);
+        }
       });
     };
 
