@@ -1,16 +1,5 @@
-(function (window, $, nv) {
-
-	window.RAPTOR = window.RAPTOR || {};
-	var ns = window.RAPTOR;
-
-	ns.Trends = function () {
-		var self = this;
-
-		this.parseTrend = function parseTrend(data, ids) {
-      _.each(ids, function(id) {
-        self.drawTrend(data, id);
-      });
-		};
+define('trends', ['nvd3', 'jquery', 'underscore'], 
+  function (nvd3, $, _) {
 
 		self.drawTrend = function drawTrend(data, id) {
 			var rows = data.rows,
@@ -50,29 +39,37 @@
             .ticks(d3.time.days, 1)
             .axisLabel('Time');
 
-            chart.yAxis
-              .axisLabel(id)
-              .tickFormat(d3.format('.02f'));
+          chart.yAxis
+            .axisLabel(id)
+            .tickFormat(d3.format('.02f'));
 
-            chart.xAxis.rotateLabels(-45);
+          chart.xAxis.rotateLabels(-45);
 
-            d3.select("#" + id).append('svg:svg')
-              .datum(plotData)
-              .transition().duration(500)
-              .call(chart);
+          d3.select("#" + id).append('svg:svg')
+            .datum(plotData)
+            .transition().duration(500)
+            .call(chart);
 
-            nv.utils.windowResize(function () {
-              setHeight();
-              chart.update(); 
-            });
+          nv.utils.windowResize(function () {
+            setHeight();
+            chart.update(); 
+          });
+
           setHeight();
           chart.update();
+
           return chart;
         } catch (e) {
           console.warn("We just caught an error");
         }
       });
 		};
-	};
 
-}(window, jQuery, nv));
+  return {
+    'parse': function parseTrend(data, ids) {
+        _.each(ids, function(id) {
+          self.drawTrend(data, id);
+        });
+      }
+    }
+});
