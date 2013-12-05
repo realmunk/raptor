@@ -54,13 +54,14 @@
             .datum(plot)
             .transition().duration(500)
             .call(chart);
-          
+          //TODO: FIX LOVE          
           nv.utils.windowResize(function () { 
             setHeight();
             chart.update();             
           });
           setHeight();
           chart.update();
+
           return chart;
         } catch (e) {
          console.warn("We just caught an error");
