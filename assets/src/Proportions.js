@@ -1,18 +1,8 @@
-(function (window, $, nv) {
-
-  window.RAPTOR = window.RAPTOR || {};
-  var ns = window.RAPTOR;
-
-  ns.Proportions = function () {
+define('proportions', ['nvd3', 'jquery', 'underscore'], 
+  function (nvd3, $, _) {   
     var self = this;
 
-    this.parseProportion = function parseProportion (data, ids) { 
-      _.each(ids, function(id) {
-        self.drawProportion(data, id);
-      });
-    };
-
-    self.drawProportion = function drawProportion (data, id) {
+    function drawProportion (data, id) {
       var rows = data.rows,
           names = data.metaData.names,
           plotData = [{
@@ -60,9 +50,14 @@
          console.warn("We just caught an error.");
         }
       });
-
     };
 
-  };
-
-}(window, jQuery, nv));
+    return {
+      'parse': function parseProportion (data, ids) { 
+        _.each(ids, function(id) {
+          drawProportion(data, id);
+        });
+      }
+    }
+  }
+);
