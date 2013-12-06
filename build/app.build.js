@@ -1,7 +1,8 @@
 var requirejs = require('requirejs'),
   path = require('path'),
   fs = require('fs'),
-  localpath = path.resolve(__dirname, "..", "versions");
+  localpath = path.resolve(__dirname, "..", "versions"),
+  AdmZip = require('adm-zip');
 
 var config = {
   appDir: "public",
@@ -46,22 +47,18 @@ fs.readFile(localpath + '/manifest.webapp', function (err, data) {
     throw err;
   }
   var manifest = JSON.parse(data);
-  manifest.version =  parseInt(manifest.version) + 0.1;
+  manifest.version = ((manifest.version * 10) + 1) / 10;
   manifest.name = "Easy Visualization " + manifest.version;
   fs.writeFile(localpath + '/manifest.webapp', JSON.stringify(manifest), {'flags': 'w'}, function (err) {
     if (err) {
       console.error("Failed while updating manifest. Contact Kristian!");
     } else {
       console.log("Succesfully updated version");
+      var zip = new AdmZip();
+      zip.addLocalFolder(path.resolve(__dirname, "..", "app-prod"), '/');
+      // add a local file
+      zip.addLocalFile(localpath + '/manifest.webapp');
+      zip.writeZip(localpath + '/raptor.zip');
     }
   });
 });
-
-// // create a zip!
-// var AdmZip = require('adm-zip'),
-//   zip = new AdmZip();
-
-// zip.addLocalFolder(path.resolve(__dirname, "..", "app-prod"), '/');
-// // add a local file
-// zip.addLocalFile(localpath + '/manifest.webapp');
-// zip.writeZip(localpath + '/raptor.zip');
