@@ -1,13 +1,45 @@
 {
   "name": "raptor-app",
+  "contributors": [
+    "krsjan",
+    "stianlp",
+    "bendikhk",
+    "martinholas"
+  ],
   "description": "DHIS2 mobile friendly web-application for visualization",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
     "express": "3.x",
-    "supervisor": "*"
+    "archiver": "~0.4.10"
+  },
+  "devDependencies": {
+    "supervisor": "*",
+    "requirejs": "*"
   },
   "scripts": {
-    "start": "supervisor server.js"
-  }
+    "start": "supervisor public/.server.js",
+    "build": "node build/app.build.js",
+    "zip": "node build/zip.build.js"
+  },
+  "main": "public/.server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krsjan/raptor.git"
+  },
+  "keywords": [
+    "dhis2",
+    "visualization",
+    "nvd3",
+    "d3",
+    "bootstrap",
+    "sammy",
+    "one-page-app"
+  ],
+  "author": "raptor",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/krsjan/raptor/issues"
+  },
+  "homepage": "https://github.com/krsjan/raptor"
 }
