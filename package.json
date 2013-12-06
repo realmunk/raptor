@@ -15,7 +15,8 @@
   },
   "devDependencies": {
     "supervisor": "*",
-    "requirejs": "*"
+    "requirejs": "*",
+    "adm-zip"
   },
   "scripts": {
     "start": "supervisor public/.server.js",
