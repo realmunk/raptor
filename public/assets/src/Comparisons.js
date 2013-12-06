@@ -1,7 +1,7 @@
 define('comparisons', ['nvd3', 'jquery', 'underscore'], function (nvd3, $, _) {
   var self = this;
   
-  this.parseComparison = function parseComparison (data, ids) { 
+  function parseComparison (data, ids) { 
     _.each(ids, function(id) {
       self.renderComparison(data, id);
     });
@@ -65,7 +65,11 @@ define('comparisons', ['nvd3', 'jquery', 'underscore'], function (nvd3, $, _) {
   };
 
   return {
-    'parseComparison': this.parseComparison
+    'parse': function parseComparison (data, ids) { 
+        _.each(ids, function(id) {
+          self.renderComparison(data, id);
+        });
+      }
   };
 
 });

@@ -33,5 +33,6 @@ require.config({
 });
 
 require(['application'], function (app) {
+  // kickstart the app.
   app.run();
 });
